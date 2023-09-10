@@ -14,12 +14,12 @@ export async function getStaticProps() {
 export default function Home({ allData }) {
   return (
     <Layout>
-      <h1>Hello from my Next.js App!</h1>
+      <h1>Page Turners Society</h1>
       <div className="list-group">
         {allData.map(({ id, name }) => (
           <Link
             key={id}
-            href={`/${id}`}
+            href={`/people/${id}`}
             className="list-group-item list-group-item-action"
           >
             {name}

@@ -1,11 +1,14 @@
-import Layout from "../components/layout";
-import { getAllIds, getData } from "../lib/data";
+import Link from "next/link";
+import Layout from "../../components/layout";
+import { getAllIds, getData, getBooksReadById } from "../../lib/data";
 
 export async function getStaticProps({ params }) {
   const itemData = await getData(params.id);
+  const readBooksData = await getBooksReadById(params.id);
   return {
     props: {
       itemData,
+      readBooksData,
     },
   };
 }
@@ -18,9 +21,10 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Entry({ itemData }) {
+export default function Entry({ itemData, readBooksData }) {
   return (
     <Layout>
+      <h1>Member Info</h1>
       <article className="card col-6">
         <div className="card-body">
           <h5 className="card-title">{itemData.name}</h5>
@@ -31,6 +35,20 @@ export default function Entry({ itemData }) {
           <a href="#" className="card-link">
             {itemData.email}
           </a>
+        </div>
+      </article>
+      <h1>Books Recommended</h1>
+      <article className="card col-6">
+        <div className="list-group">
+          {readBooksData.map(({ id, name, author }) => (
+            <Link
+              key={id}
+              href="#"
+              className="list-group-item list-group-item-action"
+            >
+              {name} by {author}
+            </Link>
+          ))}
         </div>
       </article>
     </Layout>

@@ -43,7 +43,7 @@ export default function Entry({ itemData, readBooksData }) {
           {readBooksData.map(({ id, name, author }) => (
             <Link
               key={id}
-              href="#"
+              href={`/books/${id}`}
               className="list-group-item list-group-item-action"
             >
               {name} by {author}
